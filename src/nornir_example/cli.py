@@ -5,9 +5,25 @@ import typer
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
 
-from nornir_example.functions import render_config, write_config
+from nornir_example.functions import render_config, write_config, create_dirs
 
-app = typer.Typer(help="Exactpro Network Configuration Manager")
+# Settings
+TEMPLATE_DIR = "templates"
+OUTPUT_DIR = "configs"
+
+# Initialize Typer app
+app = typer.Typer(help="Simple Nornir Example")
+
+
+@app.command()
+def init():
+    """
+    Initialize working directory
+    """
+    dirs = [TEMPLATE_DIR, OUTPUT_DIR]
+    typer.echo("Creating directories...")
+    create_dirs(dirs)
+    typer.echo("Init complete")
 
 
 @app.command()
@@ -27,9 +43,9 @@ def create_configs(
 
     # Apply default values if user didn't specify any
     if not template_dir:
-        template_dir = "templates"
+        template_dir = TEMPLATE_DIR
     if not output_dir:
-        output_dir = "configs"
+        output_dir = OUTPUT_DIR
 
     print_result(nr.run(task=render_config, template_dir=template_dir))
     print_result(nr.run(task=write_config, output_dir=output_dir))

@@ -1,6 +1,22 @@
+import os
+from pathlib import Path
+from typing import List
+
+from typer import echo
+
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.tasks.files import write_file
 from nornir_jinja2.plugins.tasks import template_file
+
+
+def create_dirs(dirs: List[Path]) -> None:
+    exists: bool = False
+    for dir in dirs:
+        if Path(dir).is_dir():
+            echo(f"Directory '{dir}' already exists")
+        else:
+            os.makedirs(dir)
+            echo(f"Directory '{dir}' created")
 
 
 def render_config(task: Task, template_dir: str) -> Result:
