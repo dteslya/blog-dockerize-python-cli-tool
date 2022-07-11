@@ -40,19 +40,6 @@ COPY ./poetry.lock ./pyproject.toml ./
 COPY ./src/$APP_NAME ./src/$APP_NAME
 
 #
-# Stage: development
-#
-FROM staging as development
-ARG APP_NAME
-ARG APP_PATH
-
-# Install project in editable mode and with development dependencies
-WORKDIR $APP_PATH
-RUN poetry install
-
-ENTRYPOINT ["poetry", "run"]
-
-#
 # Stage: build
 #
 FROM staging as build
@@ -84,9 +71,6 @@ WORKDIR $APP_PATH
 COPY --from=build $APP_PATH/dist/*.whl ./
 COPY --from=build $APP_PATH/constraints.txt ./
 RUN pip install ./$APP_NAME*.whl --constraint constraints.txt
-
-# export APP_NAME as environment variable for the CMD
-ENV APP_NAME=$APP_NAME
 
 # Entrypoint script
 COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
