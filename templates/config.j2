@@ -1,0 +1,8 @@
+hostname {{ host }}
+!
+{% for interface in host.interfaces %}
+interface {{ interface.name }}
+ description {{ interface.description }}
+ ip address {{ interface.ip }} {{ interface.mask }}
+!
+{% endfor %}
