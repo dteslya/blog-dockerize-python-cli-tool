@@ -20,7 +20,7 @@ def init():
     """
     Initialize working directory
     """
-    dirs = [TEMPLATE_DIR, OUTPUT_DIR]
+    dirs = [OUTPUT_DIR]
     typer.echo("Creating directories...")
     create_dirs(dirs)
     typer.echo("Init complete")
