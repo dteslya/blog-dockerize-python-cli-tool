@@ -10,7 +10,6 @@ from nornir_jinja2.plugins.tasks import template_file
 
 
 def create_dirs(dirs: List[Path]) -> None:
-    exists: bool = False
     for dir in dirs:
         if Path(dir).is_dir():
             echo(f"Directory '{dir}' already exists")
