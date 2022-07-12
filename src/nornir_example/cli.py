@@ -1,10 +1,12 @@
-#!/usr/bin/env python3
+# System imports
 from typing import Optional
 
+# Third party imports
 import typer
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
 
+# Private imports
 from nornir_example.functions import render_config, write_config, create_dirs
 
 # Settings

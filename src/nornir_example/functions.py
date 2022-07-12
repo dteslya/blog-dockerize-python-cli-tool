@@ -1,9 +1,10 @@
+# System imports
 import os
 from pathlib import Path
 from typing import List
 
+# Third party imports
 from typer import echo
-
 from nornir.core.task import Task, Result
 from nornir_utils.plugins.tasks.files import write_file
 from nornir_jinja2.plugins.tasks import template_file
