@@ -31,10 +31,10 @@ def init():
 @app.command()
 def create_configs(
     template_dir: Optional[str] = typer.Option(
-        "", help="Directory to look for configuration templates"
+        TEMPLATE_DIR, help="Directory to look for configuration templates"
     ),
     output_dir: Optional[str] = typer.Option(
-        "", help="Directory to put resulting configs"
+        OUTPUT_DIR, help="Directory to put resulting configs"
     ),
 ):
     """
@@ -42,12 +42,6 @@ def create_configs(
     """
 
     nr = InitNornir(config_file="nornir_config.yml")
-
-    # Apply default values if user didn't specify any
-    if not template_dir:
-        template_dir = TEMPLATE_DIR
-    if not output_dir:
-        output_dir = OUTPUT_DIR
 
     print_result(nr.run(task=render_config, template_dir=template_dir))
     print_result(nr.run(task=write_config, output_dir=output_dir))
